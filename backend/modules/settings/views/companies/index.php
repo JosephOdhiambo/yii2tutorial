@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+
 /** @var yii\web\View $this */
 /** @var backend\modules\settings\models\CompaniesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Companies', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -34,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'company_name',
             'company_email:email',
             'company_address',
-            'company_created_date',
+            'company_start_date',
+            //'company_created_date',
             //'company_status',
             [
                 'class' => ActionColumn::className(),
@@ -45,6 +45,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

@@ -13,9 +13,6 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'company_id') ?>
@@ -26,7 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_address') ?>
 
-    <?= $form->field($model, 'company_created_date') ?>
+    <?= $form->field($model, 'company_start_date') ?>
+
+    <?php // echo $form->field($model, 'company_created_date') ?>
 
     <?php // echo $form->field($model, 'company_status') ?>
 

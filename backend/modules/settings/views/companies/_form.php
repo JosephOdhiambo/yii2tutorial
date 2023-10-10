@@ -19,14 +19,20 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'company_address')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'company_start_date')->widget(\yii\jui\DatePicker::classname(), [
+    'options' => [
+        'class' => 'form-control',
+    ],
+    'dateFormat' => 'yyyy-MM-dd',
+]) ?>
+
+    
+
     <?= $form->field($model, 'company_created_date')->widget(\yii\jui\DatePicker::classname(), [
     'options' => [
         'class' => 'form-control',
     ],
-    'clientOptions' => [
-        'dateFormat' => 'yy-mm-dd', // Format of the displayed date
-        // You can add more client options here as needed
-    ],
+    'dateFormat' => 'yyyy-MM-dd',
 ]) ?>
 
 
