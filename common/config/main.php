@@ -9,5 +9,16 @@ return [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => ['jquery.js'],
+                ],
+                'yii\jui\JuiAsset' => [
+                    'css' => ['themes/smoothness/jquery-ui.css'],
+                    'js' => ['jquery-ui.js'],
+                ],
+            ],
+        ],
     ],
 ];
