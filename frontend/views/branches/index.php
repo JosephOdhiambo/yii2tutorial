@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\jui\DatePicker;
 /** @var yii\web\View $this */
 /** @var frontend\models\BranchesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -35,7 +36,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'branch_name',
             'branch_address',
-            'branch_created_date',
+            [
+                'attribute' => 'branch_created_date',
+                'value' => 'branch_created_date',
+                'format' => 'raw',
+                'filter' => DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'branch_created_date',
+                    'options' => [
+                        'class' => 'form-control',
+                    ],
+                    'dateFormat' => 'yyyy-MM-dd',
+                ]),
+            ],
             //'branch_status',
             [
                 'class' => ActionColumn::className(),

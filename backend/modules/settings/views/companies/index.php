@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
+
 /** @var yii\web\View $this */
 /** @var backend\modules\settings\models\CompaniesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */

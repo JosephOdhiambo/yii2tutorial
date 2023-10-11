@@ -4,6 +4,7 @@ use frontend\models\Departments;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
+use yii\jui\DatePicker;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
@@ -38,7 +39,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'companies_company_id',
                 'value'=>'companiesCompany.company_name'
             ],
-            'department_created_date',
+            [
+                'attribute' => 'department_created_date',
+                'value' => 'department_created_date',
+                'format' => 'raw',
+                'filter' => DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'department_created_date',
+                    'options' => [
+                        'class' => 'form-control',
+                    ],
+                    'dateFormat' => 'yyyy-MM-dd',
+                ]),
+            ],
             //'department_status',
             [
                 'class' => ActionColumn::className(),
