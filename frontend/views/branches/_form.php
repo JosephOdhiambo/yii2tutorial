@@ -1,8 +1,5 @@
 <?php
 
-// Register Bootstrap 5 assets
-BootstrapAsset::register($this);
-
 use bizley\ajaxdropdown\AjaxDropdown;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -13,9 +10,6 @@ use frontend\models\Companies;
 /** @var yii\web\View $this */
 /** @var frontend\models\Branches $model */
 /** @var yii\widgets\ActiveForm $form */
-// Register Bootstrap CSS and JavaScript assets
-BootstrapAsset::register($this);
-BootstrapPluginAsset::register($this);
 ?>
 
 <div class="branches-form">
