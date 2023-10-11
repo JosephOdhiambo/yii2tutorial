@@ -7,6 +7,8 @@ use frontend\models\CompaniesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
 
 /**
  * CompaniesController implements the CRUD actions for Companies model.
@@ -70,7 +72,19 @@ class CompaniesController extends Controller
         $model = new Companies();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+
+                // get the instance of the uploded file
+                $imageName = $model->company_name;
+                $model->file = UploadedFile::getInstance($model, 'file');
+                $model->file->saveAs('uploads/'.$imageName.'.'.$model->file->extension );
+
+                //save the path in the db column
+
+                $model->logo = 'uploads/'.$imageName.'.'.$model->file->extension;
+
+                $model->company_created_date = date('Y-m-d h:m:s');
+                $model->save();
                 return $this->redirect(['view', 'company_id' => $model->company_id]);
             }
         } else {
@@ -93,7 +107,8 @@ class CompaniesController extends Controller
     {
         $model = $this->findModel($company_id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
             return $this->redirect(['view', 'company_id' => $model->company_id]);
         }
 
