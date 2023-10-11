@@ -18,6 +18,14 @@ return [
                     'css' => ['themes/smoothness/jquery-ui.css'],
                     'js' => ['jquery-ui.js'],
                 ],
+                'bizley\ajaxdropdown\src\assets\AjaxDropdownAsset' => [
+                    'sourcePath' => '@vendor/bizley/ajaxdropdown/src/assets',
+                    'js' => ['ajaxdropdown.js'],
+                ],
+                'yii\bootstrap5\BootstrapAsset' => [
+                    'sourcePath' => '@vendor/yiisoft/yii2-bootstrap5/src/assets',
+                    'css' => ['css/bootstrap.css'], // You may have additional CSS files
+                ],
             ],
         ],
     ],
