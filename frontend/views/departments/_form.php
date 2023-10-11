@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use frontend\models\Companies;
 use frontend\models\Branches;
+use yii\jui\DatePicker;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\Departments $model */
@@ -28,7 +29,12 @@ use frontend\models\Branches;
     ) 
     ?>
 
-    <?= $form->field($model, 'department_created_date')->textInput() ?>
+    <?= $form->field($model, 'department_created_date')->widget(DatePicker::class, [
+        'options' => [
+            'class' => 'form-control',
+        ],
+        'dateFormat' => 'yyyy-MM-dd',
+    ]) ?>
 
     <?= $form->field($model, 'department_status')->dropDownList([ 'active' => 'Active', 'inactive' => 'Inactive', ], ['prompt' => '']) ?>
 

@@ -1,6 +1,7 @@
 <?php
 
 use bizley\ajaxdropdown\AjaxDropdown;
+use yii\jui\DatePicker;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -28,7 +29,12 @@ use frontend\models\Companies;
 
     <?= $form->field($model, 'branch_address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'branch_created_date')->textInput() ?>
+    <?= $form->field($model, 'branch_created_date')->widget(DatePicker::class, [
+        'options' => [
+            'class' => 'form-control',
+        ],
+        'dateFormat' => 'yyyy-MM-dd',
+    ]) ?>
 
     <?= $form->field($model, 'branch_status')->dropDownList([ 'active' => 'Active', 'inactive' => 'Inactive', ], ['prompt' => '']) ?>
 

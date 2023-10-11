@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\Companies $model */
@@ -18,7 +19,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'company_created_date')->textInput() ?>
+    <?= $form->field($model, 'company_created_date')->widget(DatePicker::class, [
+        'options' => [
+            'class' => 'form-control',
+        ],
+        'dateFormat' => 'yyyy-MM-dd',
+    ]) ?>
 
     <?= $form->field($model, 'company_status')->dropDownList([ 'active' => 'Active', 'inactive' => 'Inactive', ], ['prompt' => '']) ?>
 
