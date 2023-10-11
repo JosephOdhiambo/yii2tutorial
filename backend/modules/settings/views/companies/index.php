@@ -1,6 +1,7 @@
 <?php
 
 use backend\modules\settings\models\Companies;
+use yii\jui\DatePicker;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -33,7 +34,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'company_name',
             'company_email:email',
             'company_address',
-            'company_start_date',
+            [
+                'attribute' => 'company_start_date',
+                'value' => 'company_start_date',
+                'format' => 'raw',
+                'filter' => DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'company_start_date',
+                    'options' => [
+                        'class' => 'form-control',
+                    ],
+                    'dateFormat' => 'yyyy-MM-dd',
+                ]),
+            ],
             //'company_created_date',
             //'company_status',
             [
