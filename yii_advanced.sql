@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2023 at 01:16 PM
+-- Generation Time: Oct 11, 2023 at 08:08 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,82 @@ SET time_zone = "+00:00";
 --
 -- Database: `yii_advanced`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_assignment`
+--
+
+CREATE TABLE `auth_assignment` (
+  `item_name` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL,
+  `created_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('admin', '1', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_item`
+--
+
+CREATE TABLE `auth_item` (
+  `name` varchar(64) NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text DEFAULT NULL,
+  `rule_name` varchar(64) DEFAULT NULL,
+  `data` text DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+('admin', 1, 'admin can create branches and create companies', NULL, NULL, NULL, NULL),
+('create-branch', 1, 'allow a user to add a branch', NULL, NULL, NULL, NULL),
+('create-company', 1, 'allows user to create a company', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_item_child`
+--
+
+CREATE TABLE `auth_item_child` (
+  `parent` varchar(64) NOT NULL,
+  `child` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `auth_item_child`
+--
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('admin', 'create-branch'),
+('admin', 'create-company');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_rule`
+--
+
+CREATE TABLE `auth_rule` (
+  `name` varchar(64) NOT NULL,
+  `data` text DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -44,7 +120,7 @@ INSERT INTO `branches` (`branch_id`, `companies_company_id`, `branch_name`, `bra
 (1, 1, 'Main Branch', 'some branch address', '2023-10-07 02:10:48', 'active'),
 (2, 2, 'Town Branch', 'Nearby', '2023-10-07 02:10:15', 'active'),
 (3, 2, 'Wagithomo', 'Westside', '2023-10-07 03:10:50', 'inactive'),
-(4, 1, 'Main Branch', 'some branch address', '2023-10-08 06:10:55', 'active'),
+(4, 1, 'Main Branch', 'some branch address', '2023-10-08 00:00:00', 'active'),
 (5, 3, 'UON Branch', 'Mamlak', '2023-10-07 00:00:00', 'active'),
 (6, 3, 'UON Branch', 'Kumbaya', '2023-10-09 00:00:00', 'active'),
 (7, 3, 'Kitui', 'Far away', '2023-10-25 00:00:00', 'active'),
@@ -62,6 +138,7 @@ CREATE TABLE `companies` (
   `company_name` varchar(100) NOT NULL,
   `company_email` varchar(100) NOT NULL,
   `company_address` varchar(255) NOT NULL,
+  `logo` varchar(200) NOT NULL,
   `company_start_date` date NOT NULL,
   `company_created_date` date NOT NULL,
   `company_status` enum('active','inactive') NOT NULL
@@ -71,22 +148,28 @@ CREATE TABLE `companies` (
 -- Dumping data for table `companies`
 --
 
-INSERT INTO `companies` (`company_id`, `company_name`, `company_email`, `company_address`, `company_start_date`, `company_created_date`, `company_status`) VALUES
-(1, 'ABC', 'abc@gmail.com', 'some address', '2023-10-04', '2023-12-20', 'active'),
-(2, 'BCA', 'bca@hmail.com', 'very very far', '2024-05-15', '2023-10-07', 'inactive'),
-(3, 'No Cmpany', 'odhisjoseph85@gmail.com', 'Mamlaka', '2023-05-02', '2023-10-23', 'active'),
-(4, 'Jay Rock', 'rock@gmail.com', 'Block LLC', '2023-08-16', '2023-07-18', 'active'),
-(5, 'Ibtihaj', 'ib@email.com', 'tihaj LLC', '0000-00-00', '2023-10-24', 'active'),
-(6, 'Qing', 'madi@email.com', 'Nigeria', '0000-00-00', '2023-07-18', 'inactive'),
-(7, 'Waitha', 'ithaa@gmail.com', 'Laka', '0000-00-00', '2023-08-23', 'inactive'),
-(8, 'Side', 'dise@gmail.com', 'Milmani', '0000-00-00', '2023-12-20', 'active'),
-(9, 'walid', 'lid@rmail.com', 'booking', '0000-00-00', '2023-12-19', 'inactive'),
-(10, 'No Cmpany', 'odhisjoseph85@gmail.com', 'Mamlaka', '0000-00-00', '2023-07-20', 'active'),
-(11, 'Njaka', 'nj@fmail.com', 'shit ', '0000-00-00', '2023-05-23', 'active'),
-(12, 'No Cmpany', 'millions85@gmail.com', 'Buru', '0000-00-00', '2024-03-19', 'active'),
-(13, 'Kanye', 'west@gmail.com', 'Rocking', '2023-10-20', '2023-10-24', 'inactive'),
-(14, 'wallahi', 'thanks@email.com', 'nearby', '2023-10-12', '2023-10-18', 'inactive'),
-(15, 'kwanza', 'ghost@gmail.com', 'Mamlaka', '2023-10-18', '0000-00-00', 'active');
+INSERT INTO `companies` (`company_id`, `company_name`, `company_email`, `company_address`, `logo`, `company_start_date`, `company_created_date`, `company_status`) VALUES
+(1, 'ABC', 'abc@gmail.com', 'some address', 'uploads/ABC.jpg', '2023-10-04', '2023-10-11', 'active'),
+(2, 'BCA', 'bca@hmail.com', 'very very far', '', '2024-05-15', '2023-10-07', 'inactive'),
+(3, 'No Cmpany', 'odhisjoseph85@gmail.com', 'Mamlaka', '', '2023-05-02', '2023-10-23', 'active'),
+(4, 'Jay Rock', 'rock@gmail.com', 'Block LLC', '', '2023-08-16', '2023-07-18', 'active'),
+(5, 'Ibtihaj', 'ib@email.com', 'tihaj LLC', '', '0000-00-00', '2023-10-24', 'active'),
+(6, 'Qing', 'madi@email.com', 'Nigeria', '', '0000-00-00', '2023-07-18', 'inactive'),
+(7, 'Waitha', 'ithaa@gmail.com', 'Laka', '', '0000-00-00', '2023-08-23', 'inactive'),
+(8, 'Side', 'dise@gmail.com', 'Milmani', '', '0000-00-00', '2023-12-20', 'active'),
+(9, 'walid', 'lid@rmail.com', 'booking', '', '0000-00-00', '2023-12-19', 'inactive'),
+(10, 'No Cmpany', 'odhisjoseph85@gmail.com', 'Mamlaka', '', '0000-00-00', '2023-07-20', 'active'),
+(11, 'Njaka', 'nj@fmail.com', 'shit ', '', '0000-00-00', '2023-05-23', 'active'),
+(12, 'No Cmpany', 'millions85@gmail.com', 'Buru', '', '0000-00-00', '2024-03-19', 'active'),
+(13, 'Kanye', 'west@gmail.com', 'Rocking', '', '2023-10-20', '2023-10-24', 'inactive'),
+(14, 'wallahi', 'thanks@email.com', 'nearby', '', '2023-10-12', '2023-10-18', 'inactive'),
+(15, 'kwanza', 'ghost@gmail.com', 'Mamlaka', '', '2023-10-18', '0000-00-00', 'active'),
+(21, 'No Cmpany2', 'odhisjoseph85@gmail.com', 'Mamlaka', '', '0000-00-00', '2023-10-20', 'active'),
+(22, 'No Cmpany2', 'odhisjoseph85@gmail.com', 'Mamlaka', '', '0000-00-00', '2023-10-31', 'active'),
+(23, 'No Cmpany2', 'odhisjoseph85@gmail.com', 'Mamlaka', '', '0000-00-00', '2023-10-31', 'active'),
+(24, 'wlakssk', 'W@email.com', 'lid', '', '0000-00-00', '2023-10-30', 'active'),
+(26, 'Lion King', 'king@gmail.com', 'Simba', 'uploads/Lion King.jpg', '0000-00-00', '2023-10-11', 'active'),
+(27, 'Niqqa prods', 'odhisjoseph85@gmail.com', 'Mamlaka', 'uploads/Niqqa prods.jpg', '0000-00-00', '2023-10-11', 'inactive');
 
 -- --------------------------------------------------------
 
@@ -166,6 +249,33 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `auth_key`, `pa
 --
 
 --
+-- Indexes for table `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`);
+
+--
+-- Indexes for table `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `type` (`type`);
+
+--
+-- Indexes for table `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Indexes for table `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
 -- Indexes for table `branches`
 --
 ALTER TABLE `branches`
@@ -215,7 +325,7 @@ ALTER TABLE `branches`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -232,6 +342,25 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `branches`
