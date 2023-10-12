@@ -7,6 +7,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\jui\DatePicker;
+use yii\bootstrap5\Modal;
 /** @var yii\web\View $this */
 /** @var frontend\models\BranchesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -19,8 +20,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Branches', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Create Branches', ['value' => Url::to(['branches/create']), 'class' => 'btn btn-success', 'id' => 'modalButton']) ?>
+
     </p>
+
+
+    <?php
+	Modal::begin([
+		'title'=>'<h4>Branches</h4>',
+		'id'=> 'modal',
+		'size' => 'modal-lg',
+	]);
+
+	echo "<div id='modalContent'></div>";
+
+	Modal::end();
+?>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
