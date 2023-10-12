@@ -17,17 +17,25 @@ use yii\jui\DatePicker;
     <?php $form = ActiveForm::begin(); ?>
    <?= $form->field($model, 'department_name')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'branches_branch_id')->dropDownList(
-            ArrayHelper::map(Branches::find()->all(), 'branch_id','branch_name'),
-            ['prompt'=>'Select Branches']
-    ) 
-    ?>
+    <?= $form->field($model, 'companies_company_id')->dropDownList(
+        ArrayHelper::map(Companies::find()->all(), 'company_id', 'company_name'),
+        [
+            'prompt' => 'Select Company',
+            'onchange' => <<<JS
+            $.post("index.php?r=branches/lists&id=" + $(this).val(), function(data) {
+                console.log(data);
+                $("select#departments-branches_branch_id").html(data);
+            });
+        JS
+        ]
+    ) ?>
 
-            <?= $form->field($model, 'companies_company_id')->dropDownList(
-            ArrayHelper::map(Companies::find()->all(), 'company_id','company_name'),
-            ['prompt'=>'Select Company']
-    ) 
-    ?>
+    <?= $form->field($model, 'branches_branch_id')->dropDownList(
+        ArrayHelper::map(Companies::find()->all(), 'branch_id', 'branch_name'),
+        [
+            'prompt' => 'Select Branch',
+        ]
+    ) ?>
 
     <?= $form->field($model, 'department_created_date')->widget(DatePicker::class, [
         'options' => [
