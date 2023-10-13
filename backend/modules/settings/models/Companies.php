@@ -37,9 +37,19 @@ class Companies extends \yii\db\ActiveRecord
             [['company_name', 'company_email', 'company_address', 'company_start_date', 'company_created_date', 'company_status'], 'required'],
             [['company_start_date', 'company_created_date'], 'safe'],
             [['company_status'], 'string'],
+            [['company_start_date'], 'checkDate'],
             [['company_name', 'company_email'], 'string', 'max' => 100],
             [['company_address'], 'string', 'max' => 255],
         ];
+    }
+
+    public function checkDate($attribute, $params){
+        $start_date = Yii::$app->formatter->asDate($this->$attribute, 'yyyy-MM-dd'); // Ensure date is in 'yyyy-MM-dd' format
+        $today = date('Y-m-d');
+
+        if (strtotime($start_date) < strtotime($today)) {
+            $this->addError($attribute, 'Start date cannot be earlier than today.');
+        }
     }
 
     /**

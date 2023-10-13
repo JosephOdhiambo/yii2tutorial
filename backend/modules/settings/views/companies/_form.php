@@ -11,7 +11,7 @@ use yii\jui\DatePicker;
 
 <div class="companies-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['enableAjaxValidation'=>true]); ?>
 
     <?= $form->field($model, 'company_name')->textInput(['maxlength' => true]) ?>
 
@@ -19,7 +19,7 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'company_address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'company_start_date')->widget(\yii\jui\DatePicker::classname(), [
+    <?= $form->field($model, 'company_start_date')->widget(DatePicker::class, [
     'options' => [
         'class' => 'form-control',
     ],
@@ -28,7 +28,7 @@ use yii\jui\DatePicker;
 
     
 
-    <?= $form->field($model, 'company_created_date')->widget(\yii\jui\DatePicker::classname(), [
+    <?= $form->field($model, 'company_created_date')->widget(DatePicker::class, [
     'options' => [
         'class' => 'form-control',
     ],
