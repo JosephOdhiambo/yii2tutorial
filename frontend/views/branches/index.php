@@ -15,6 +15,10 @@ use yii\bootstrap5\Modal;
 $this->title = 'Branches';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php
+echo Html::cssFile('@web/css/site.css');
+?>
 <div class="branches-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -43,6 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            if ($model->branch_status === 'inactive') {
+                return ['class' => 'alert alert-danger'];
+            } else{
+                return ['class' => 'alert alert-success'];
+            }
+        },
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
                         [
@@ -64,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dateFormat' => 'yyyy-MM-dd',
                 ]),
             ],
-            //'branch_status',
+            'branch_status',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Branches $model, $key, $index, $column) {

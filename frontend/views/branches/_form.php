@@ -13,6 +13,7 @@ use frontend\models\Companies;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
+
 <div class="branches-form">
 
     <?php $form = ActiveForm::begin(); ?>

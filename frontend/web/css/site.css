@@ -8,6 +8,11 @@ main > .container, main > .container-fluid
     font-size: .9em;
     height: 60px;
 }
+.danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
 
 .footer > .container, .footer > .container-fluid {
     padding-right: 15px;

@@ -16,6 +16,8 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $authItems;
+    public $permissions;
 
 
     /**
@@ -52,7 +54,7 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
         $user->first_name = $this->first_name;
         $user->last_name = $this->last_name;
@@ -62,8 +64,32 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
 
-        return $user->save() && $this->sendEmail($user);
+        // Save the user model to the database
+        if ($user->save()) {
+
+            // Now, you can add the permissions
+            $permissionList = $_POST['SignupForm']['permissions'];
+            foreach ($permissionList as $value) {
+                $newPermission = new AuthAssignment;
+                $newPermission->user_id = $user->id;
+                $newPermission->item_name = $value;
+                $newPermission->save();
+            }
+
+            // You can add a success message or redirect here
+            Yii::$app->session->setFlash('success', 'Signup was successful.');
+            return $user->save() && $this->sendEmail($user);
+        }
+
+        // Handle any errors here
+        // You can also add a failure message and redirect to the signup form
+        Yii::$app->session->setFlash('error', 'Signup failed.');
+        return $this->render('signup', [
+            'model' => $this, // Assuming you want to display the signup form again
+        ]);
     }
+
+
 
     /**
      * Sends confirmation email to user

@@ -68,7 +68,7 @@ class BranchesController extends Controller
      */
     public function actionCreate()
     {
-        if(Yii::$app->user->can('create-branch')){
+        if(Yii::$app->user->can('admin')){
             $model = new Branches();
             if ($this->request->isPost) {
                 if ($model->load($this->request->post()) && $model->save()) {
