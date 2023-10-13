@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\Companies $model */
+/** @var frontend\models\Branches $branch */ // Define the Branches model
 
 $this->title = 'Update Companies: ' . $model->company_id;
 $this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => ['index']];
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'branch' => $branch,
     ]) ?>
 
 </div>

@@ -12,7 +12,9 @@ use frontend\models\Companies;
 /** @var frontend\models\Branches $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-
+<?php
+echo Html::cssFile('@web/css/site.css');
+?>
 
 <div class="branches-form">
 

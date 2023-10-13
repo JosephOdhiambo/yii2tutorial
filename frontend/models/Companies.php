@@ -34,7 +34,7 @@ class Companies extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['company_name','logo', 'company_email', 'company_address', 'company_created_date', 'company_status'], 'required'],
+            [['company_name', 'company_email', 'company_address', 'company_created_date', 'company_status'], 'required'],
             [['company_created_date'], 'safe'],
             [['company_status'], 'string'],
             [['file'], 'file'],
@@ -79,4 +79,5 @@ class Companies extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Departments::class, ['companies_company_id' => 'company_id']);
     }
+
 }

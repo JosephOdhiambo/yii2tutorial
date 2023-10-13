@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\controllers;
+use frontend\models\Branches;
 use Yii;
 use frontend\models\Companies;
 use frontend\models\CompaniesSearch;
@@ -70,23 +71,34 @@ class CompaniesController extends Controller
      */
     public function actionCreate()
     {
-        if(Yii::$app->user->can('create-company')){
+        if (Yii::$app->user->can('create-company')) {
             $model = new Companies();
+            $branch = new Branches();
 
             if ($this->request->isPost) {
-                if ($model->load($this->request->post())) {
-
-                    // get the instance of the uploded file
+                if ($model->load($this->request->post()) && $branch->load($this->request->post())) {
+                    // get the instance of the uploaded file
                     $imageName = $model->company_name;
                     $model->file = UploadedFile::getInstance($model, 'file');
-                    $model->file->saveAs('uploads/'.$imageName.'.'.$model->file->extension );
 
-                    //save the path in the db column
-
-                    $model->logo = 'uploads/'.$imageName.'.'.$model->file->extension;
+                    if ($model->file !== null) {
+                        try {
+                            $model->file->saveAs('uploads/' . $imageName . '.' . $model->file->extension);
+                            // Save the path in the database column
+                            $model->logo = 'uploads/' . $imageName . '.' . $model->file->extension;
+                        } catch (\Exception $e) {
+                            // Handle any exceptions that occur when saving the file, e.g., log the error.
+                            Yii::error('Error saving the uploaded file: ' . $e->getMessage());
+                        }
+                    }
 
                     $model->company_created_date = date('Y-m-d h:m:s');
                     $model->save();
+
+                    $branch->companies_company_id = $model->company_id;
+                    $branch->branch_created_date = date('yyyy-MM-dd');
+                    $branch->save();
+
                     return $this->redirect(['view', 'company_id' => $model->company_id]);
                 }
             } else {
@@ -95,8 +107,9 @@ class CompaniesController extends Controller
 
             return $this->render('create', [
                 'model' => $model,
+                'branch' => $branch,
             ]);
-        } else{
+        } else {
             throw new ForbiddenHttpException;
         }
     }
@@ -111,16 +124,21 @@ class CompaniesController extends Controller
     public function actionUpdate($company_id)
     {
         $model = $this->findModel($company_id);
+        $branch = new Branches();
 
-        if ($this->request->isPost && $model->load($this->request->post())) {
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // The model has been successfully updated.
+            Yii::$app->session->setFlash('success', 'Company updated successfully.');
             return $this->redirect(['view', 'company_id' => $model->company_id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'branch' => $branch,
         ]);
     }
+
+
 
     /**
      * Deletes an existing Companies model.
