@@ -15,9 +15,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?= $form->field($model, 'po_no')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'description')->textInput() ?>
 
-    <div class="row">
+    <?= $form->field($model, 'description')->textarea(['rows' => 4]) ?>
+
+
+    <div class="form-control my-2">
         <div class="card">
             <div class="card-header">
                 <h4><i class="bi bi-envelope"></i> Po Items</h4> <!-- Replace glyphicon class with Bootstrap 5 icon class -->
@@ -27,7 +29,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                     'widgetContainer' => 'dynamicform_wrapper',
                     'widgetBody' => '.container-items',
                     'widgetItem' => '.item',
-                    'limit' => 4,
+                    'limit' => 10,
                     'min' => 1,
                     'insertButton' => '.add-item',
                     'deleteButton' => '.remove-item',
@@ -42,8 +44,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             <div class="card-header">
                                 <h3 class="card-title">Po Item</h3>
                                 <div class="float-end">
-                                    <button type="button" class="add-item btn btn-success btn-sm"><i class="bi bi-plus-square-fill"></i></button>
-                                    <button type="button" class="remove-item btn btn-danger btn-sm"><i class="bi bi-dash-square"></i></button>
+                                    <button type="button" class="add-item btn btn-success btn-md"><i class="bi bi-plus-square-fill"></i></button>
+                                    <button type="button" class="remove-item btn btn-danger btn-md"><i class="bi bi-dash-square"></i></button>
                                 </div>
                             </div>
                             <div class="card-body">

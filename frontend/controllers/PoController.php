@@ -2,9 +2,11 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Model;
 use frontend\models\Po;
 use frontend\models\PoItem;
 use frontend\models\PoSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -73,7 +75,42 @@ class PoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                $modelsPoItem = Model::createMultiple(PoItem::classname());
+                Model::loadMultiple($modelsPoItem, Yii::$app->request->post());
+
+//                // ajax validation
+//                if (Yii::$app->request->isAjax) {
+//                    Yii::$app->response->format = Response::FORMAT_JSON;
+//                    return ArrayHelper::merge(
+//                        ActiveForm::validateMultiple($modelsAddress),
+//                        ActiveForm::validate($modelCustomer)
+//                    );
+//                }
+
+                // validate all models
+                $valid = $model->validate();
+                $valid = Model::validateMultiple($modelsPoItem) && $valid;
+
+                if ($valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model->save(false)) {
+                            foreach ($modelsPoItem as $modelPoItem) {
+                                $modelPoItem->po_id = $model->id;
+                                if (! ($flag = $modelPoItem->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+                            }
+                        }
+                        if ($flag) {
+                            $transaction->commit();
+                            return $this->redirect(['view', 'id' => $model->id]);
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                    }
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -92,18 +129,56 @@ class PoController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
+
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelsPoItem = $model->poItems;
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            $model->load($this->request->post());
+
+            // Load and validate PoItem models
+            $modelsPoItem = Model::createMultiple(PoItem::classname());
+            Model::loadMultiple($modelsPoItem, Yii::$app->request->post());
+
+            // Validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsPoItem) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($model->save(false)) {
+                        // Delete old related PoItem records
+                        PoItem::deleteAll(['po_id' => $model->id]);
+
+                        foreach ($modelsPoItem as $modelPoItem) {
+                            $modelPoItem->po_id = $model->id;
+                            if (!($modelPoItem->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+
+                        if ($transaction->getIsActive()) {
+                            $transaction->commit();
+                            return $this->redirect(['view', 'id' => $model->id]);
+                        }
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelsPoItem' => (empty($modelsPoItem)) ? [new PoItem] : $modelsPoItem,
         ]);
     }
+
 
     /**
      * Deletes an existing Po model.
