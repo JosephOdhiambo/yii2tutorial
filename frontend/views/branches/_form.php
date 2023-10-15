@@ -18,12 +18,12 @@ echo Html::cssFile('@web/css/site.css');
 
 <div class="branches-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => $model->formName()]); ?>
 
         <?= $form->field($model, 'companies_company_id')->dropDownList(
             ArrayHelper::map(Companies::find()->all(), 'company_id','company_name'),
             ['prompt'=>'Select Company']
-    ) 
+    )
     ?>
 
 
@@ -48,3 +48,30 @@ echo Html::cssFile('@web/css/site.css');
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+
+$script = <<<JS
+$('form#{$model->formName()}').on('beforeSubmit', function(e){
+    var \$form = $(this);
+    var formData = \$form.serializeArray(); // Serialize the form data as an array
+    console.log(formData); // Log the serialized data as an array to the console
+
+    $.post(
+        \$form.attr("action"),
+        \$form.serialize()
+    ).done(function(result){
+            \$form.trigger("reset");
+    }).fail(function() {
+        console.log("server error");
+    });
+    return false;
+});
+JS;
+
+$this->registerJs($script);
+
+
+?>
+

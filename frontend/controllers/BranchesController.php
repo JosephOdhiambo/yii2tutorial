@@ -71,8 +71,12 @@ class BranchesController extends Controller
         if(Yii::$app->user->can('admin')){
             $model = new Branches();
             if ($this->request->isPost) {
-                if ($model->load($this->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'branch_id' => $model->branch_id]);
+                if ($model->load($this->request->post())) {
+                    if($model->save()){
+                        echo 1;
+                    } else{
+                        echo 0;
+                    }
                 }
             } else {
                 $model->loadDefaultValues();
@@ -97,8 +101,14 @@ class BranchesController extends Controller
     {
         $model = $this->findModel($branch_id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'branch_id' => $model->branch_id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+            if($model->save()){
+                echo 1;
+            } else{
+                echo 0;
+            }
+//            return $this->redirect(['view', 'branch_id' => $model->branch_id]);
         }
 
         return $this->render('update', [

@@ -41,7 +41,7 @@ echo Html::cssFile('@web/css/site.css');
 	Modal::end();
 ?>
 
-    <?php Pjax::begin(); ?>
+    <?php Pjax::begin(['id' => 'branchesGrid']); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
