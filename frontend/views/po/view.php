@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use kartik\grid\GridViewAsset;
+GridViewAsset::register($this);
 /** @var yii\web\View $this */
 /** @var frontend\models\Po $model */
 

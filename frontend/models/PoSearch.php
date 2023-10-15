@@ -38,31 +38,35 @@ class PoSearch extends Po
      *
      * @return ActiveDataProvider
      */
+
     public function search($params)
     {
+        // Create a query using the Po model
         $query = Po::find();
 
-        // add conditions that should always apply here
-
+        // Define a data provider
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
+        // Load the search parameters into the model
         $this->load($params);
 
+        // Validate the model
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            // Return an empty data provider if validation fails
             return $dataProvider;
         }
 
-        // grid filtering conditions
+        // Add filtering conditions based on the search criteria
         $query->andFilterWhere([
             'id' => $this->id,
-            'description' => $this->description,
         ]);
 
-        $query->andFilterWhere(['like', 'po_no', $this->po_no]);
+        $query->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'po_no', $this->po_no]);
+
+        // You can add more filtering conditions here if needed
 
         return $dataProvider;
     }

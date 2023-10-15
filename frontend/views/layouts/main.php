@@ -2,6 +2,8 @@
 
 /** @var \yii\web\View $this */
 /** @var string $content */
+use kartik\grid\GridViewAsset;
+GridViewAsset::register($this);
 
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
