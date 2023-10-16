@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\bootstrap5\Modal;
 use yii\widgets\Pjax;
 use yii2fullcalendar\yii2fullcalendar;
 
@@ -23,11 +24,17 @@ $this->params['breadcrumbs']['event'] = $this->title;
 ?>
 <div class="event-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php
+    Modal::begin([
+        'title'=>'<h4>events</h4>',
+        'id'=> 'modal',
+        'size' => 'modal-lg',
+    ]);
 
-    <p>
-        <?= Html::a('Create Event', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    echo "<div id='modalContent'></div>";
+
+    Modal::end();
+    ?>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]);

@@ -51,6 +51,7 @@ class EventsController extends Controller
 
             $event = new \yii2fullcalendar\models\Event();
             $event->id = $eve->id;
+//            $event->backgroundColor = 'red';
             $event->title = $eve->title;
             $event->start = $eve->created_date;
 
@@ -81,19 +82,20 @@ class EventsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($date)
     {
         $model = new Event();
+        $model->created_date = $date;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }
