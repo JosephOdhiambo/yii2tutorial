@@ -76,9 +76,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        Yii::$app->MyComponent->hello();
+        $convertedAmount = Yii::$app->MyComponent->currencyConvert('USD', 'LKR', 100);
+
+        // Call the currencyConvert function to convert 100 USD to LKR.
+        $usdAmount = 100;
+        if ($convertedAmount !== null) {
+            echo "Converted amount: $convertedAmount LKR";
+        } else {
+            echo "Currency conversion failed. Please check your input data and network connection.";
+        }
         die();
-//        return $this->render('index');
+        return $this->render('index');
     }
 
     /**
