@@ -6,13 +6,13 @@ use kartik\grid\GridViewAsset;
 GridViewAsset::register($this);
 
 use common\widgets\Alert;
-use frontend\assets\AppAsset;
+use frontend\assets\LoginAsset;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
-AppAsset::register($this);
+LoginAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
