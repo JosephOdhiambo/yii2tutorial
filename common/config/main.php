@@ -13,7 +13,10 @@ return [
             // message source
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
-        ]
+        ],
+        'calendar' => [
+            'class' => 'philippfrenzel\yii2fullcalendar\Module',
+        ],
     ],
 
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
@@ -41,6 +44,9 @@ return [
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'sourcePath' => null,
                     'js' => [],
+                ],
+                'philippfrenzel\yii2fullcalendar\FullCalendarAsset' => [
+                    'sourcePath' => null,
                 ],
             ],
         ],
