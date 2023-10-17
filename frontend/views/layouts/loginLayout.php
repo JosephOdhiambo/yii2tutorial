@@ -23,26 +23,19 @@ LoginAsset::register($this);
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-        <!-- Option 1: Include in HTML -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-        <!-- Include Bootstrap JavaScript and jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-
-        <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
-        <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>-->
-        <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
     </head>
-    <body class="d-flex flex-column h-100">
-    <?php $this->beginBody() ?>
-
-    <main role="main" class="flex-shrink-0">
-        <div class="container">
+    <body  class="hold-transition login-page"">
+    <div class="login-box py-lg-5">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1"><b>Admin</b>LTE</a>
+            </div>
+            <div class="card-body">
             <?= Alert::widget() ?>
             <?= $content ?>
+            </div>
         </div>
-    </main>
+    </div>
 
     <footer class="footer mt-auto py-3 text-muted">
         <div class="container">

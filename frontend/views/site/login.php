@@ -16,14 +16,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>Please fill out the following fields to login:</p>
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-12">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <div class="input-group mb-3">
+                <?= $form->field($model, 'username', [
+                    'options' => ['tag' => false],
+                    'template' => "{input}",
+                ])->textInput(['class' => 'form-control', 'autofocus' => true]) ?>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                </div>
+            </div>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
+            <div class="input-group mb-3">
+                <?= $form->field($model, 'password', [
+                        'options' => ['tag' => false],
+                        'template' => "{input}",
+                ])->passwordInput(['class' => 'form-control', 'autofocus' => true]) ?>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-8">
+                <div class="icheck-primary">
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                </div>
+            </div>
+            </div>
 
                 <div class="my-1 mx-0" style="color:#999;">
                     If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
