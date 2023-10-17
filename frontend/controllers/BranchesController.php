@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Branches;
 use frontend\models\BranchesSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -41,6 +42,24 @@ class BranchesController extends Controller
     {
         $searchModel = new BranchesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
+        if(Yii::$app->request->post('hasEditable'))
+        {
+            $branchId = Yii::$app->request->post('editableKey');
+            $branch = Branches::findOne($branchId);
+
+
+            $out = JSON::encode(['output' => '', 'message' => '']);
+            $post = [];
+            $posted = current($_POST['Branches']);
+            $post['Branches'] = $posted;
+            if($branch->load($post))
+            {
+                $branch->save();
+            }
+            echo $out;
+            return;
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
