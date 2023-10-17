@@ -32,7 +32,8 @@
     "bower-asset/bootstrap": "^5.3",
     "kartik-v/yii2-grid": "^3.5",
     "dimmitri/yii2-expand-row-column": "*",
-    "philippfrenzel/yii2fullcalendar": "3.*"
+    "philippfrenzel/yii2fullcalendar": "3.*",
+    "kartik-v/yii2-editable": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

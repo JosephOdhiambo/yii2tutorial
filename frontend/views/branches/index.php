@@ -4,7 +4,7 @@ use frontend\models\Branches;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use yii\jui\DatePicker;
 use yii\bootstrap5\Modal;
@@ -41,12 +41,13 @@ echo Html::cssFile('@web/css/site.css');
 	Modal::end();
 ?>
 
-    <?php Pjax::begin(['id' => 'branchesGrid']); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax' => true,
+        'export' => false,
         'rowOptions' => function ($model, $key, $index, $grid) {
             if ($model->branch_status === 'inactive') {
                 return ['class' => 'alert alert-danger'];
@@ -61,7 +62,11 @@ echo Html::cssFile('@web/css/site.css');
                 'attribute'=>'companies_company_id',
                 'value'=>'companiesCompany.company_name'
             ],
-            'branch_name',
+            [
+                'class' => 'kartik\grid\EditableColumn',
+                'header' => 'BRANCH',
+                'attribute' => 'branch_name',
+            ],
             'branch_address',
             [
                 'attribute' => 'branch_created_date',
@@ -86,6 +91,5 @@ echo Html::cssFile('@web/css/site.css');
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>
