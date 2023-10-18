@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\controllers;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yii;
 use frontend\models\Branches;
 use frontend\models\BranchesSearch;
@@ -9,6 +10,9 @@ use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * BranchesController implements the CRUD actions for Branches model.
@@ -133,6 +137,41 @@ class BranchesController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+
+    public function actionImportExcel()
+    {
+        $inputFile = 'uploads/branches_file.xlsx';
+
+        try {
+            $spreadsheet = IOFactory::load($inputFile);
+        } catch (Exception $e) {
+            die('Error');
+        }
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $highestRow = $worksheet->getHighestRow();
+        $highestColumn = $worksheet->getHighestColumn();
+
+        for ($row = 1; $row <= $highestRow; $row++) {
+            $rowData = $worksheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, null, true, false);
+
+            if ($row == 1) {
+                continue; // Skip the header row
+            }
+
+            $branch = new Branches();
+            $branch_id = $rowData[0][0];
+            $branch->companies_company_id = $rowData[0][1];
+            $branch->branch_name = $rowData[0][2];
+            $branch->branch_address = $rowData[0][3];
+            $branch->branch_created_date = $rowData[0][4];
+            $branch->branch_status = $rowData[0][5];
+            $branch->save();
+
+            print_r($branch->getErrors());
+        }
     }
 
     /**
