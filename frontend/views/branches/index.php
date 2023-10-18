@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
+
 echo Html::cssFile('@web/css/site.css');
 ?>
 <div class="branches-index">
@@ -45,26 +46,31 @@ echo Html::cssFile('@web/css/site.css');
 
 
  <?php
-$gridColumns = [
-    'branch_address',
-    'branch_name',
-    'branch_created_date',
-    'branch_status'
-    ];
-
-    echo \kartik\export\ExportMenu::widget([
-            'dataProvider' => $dataProvider,
-        'columns' => $gridColumns
-    ]);
+//$gridColumns = [
+//    'branch_address',
+//    'branch_name',
+//    'branch_created_date',
+//    'branch_status'
+//    ];
+//
+//    echo \kartik\export\ExportMenu::widget([
+//            'dataProvider' => $dataProvider,
+//        'columns' => $gridColumns
+//    ]);
 ?>
-    
 
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'pjax' => true,
-        'export' => false,
+
+    <?php
+    $i=1;
+    echo GridView::widget([
+        'dataProvider'=>$dataProvider,
+        'autoXlFormat'=>true,
+        'toggleDataContainer' => ['class' => 'btn-group mr-2 me-2'],
+        'export'=>[
+            'showConfirmAlert'=>false,
+            'target'=>GridView::TARGET_BLANK
+        ],
         'rowOptions' => function ($model, $key, $index, $grid) {
             if ($model->branch_status === 'inactive') {
                 return ['class' => 'alert alert-danger'];
@@ -72,41 +78,57 @@ $gridColumns = [
                 return ['class' => 'alert alert-success'];
             }
         },
+        'columns'=>[
+            [
+                'attribute' => 'Branch Id',
+                'value' => 'branch_id',
+                'format' => 'text',
+                'width' => '100px',
 
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-                        [
+            ],
+            [
                 'attribute'=>'companies_company_id',
-                'value'=>'companiesCompany.company_name'
+                'value'=>'companiesCompany.company_name',
+                'format'=>'text',
+                'width'=>'100px',
             ],
             [
-                'class' => 'kartik\grid\EditableColumn',
+                'attribute'=>'branch_name',
                 'header' => 'BRANCH',
-                'attribute' => 'branch_name',
+                'class' => 'kartik\grid\EditableColumn',
+                'format'=>'text',
+                'width'=>'120px'
             ],
-            'branch_address',
             [
-                'attribute' => 'branch_created_date',
+                'attribute'=>'branch_created_date',
+                'format'=>['date', 'php:d-M-Y'],
                 'value' => 'branch_created_date',
-                'format' => 'raw',
-                'filter' => DatePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'branch_created_date',
-                    'options' => [
-                        'class' => 'form-control',
-                    ],
-                    'dateFormat' => 'yyyy-MM-dd',
-                ]),
+                'xlFormat'=>'mmm\-dd\, yyyy',
+                'width'=>'100px'
             ],
-            'branch_status',
+
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Branches $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'branch_id' => $model->branch_id]);
-                 }
+                'attribute'=>'branch_status',
+                'value'=>'branch_status',
+                'format'=>'text',
+                'width'=>'100px',
             ],
+
+            [
+                'attribute'=>'branch_created_date',
+                'value' => 'branch_created_date',
+                'format'=>['datetime', 'php:d-M-y H:i:s'],
+                'width'=>'140px'
+            ]
         ],
-    ]); ?>
+        'pjax'=>true,
+//        'showPageSummary'=>true,
+        'panel'=>[
+            'type'=>'primary',
+            'heading'=>'Products'
+        ]
+    ]);
+    ?>
 
 
 </div>
