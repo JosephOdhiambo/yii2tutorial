@@ -43,6 +43,23 @@ echo Html::cssFile('@web/css/site.css');
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+
+ <?php
+$gridColumns = [
+    'branch_address',
+    'branch_name',
+    'branch_created_date',
+    'branch_status'
+    ];
+
+    echo \kartik\export\ExportMenu::widget([
+            'dataProvider' => $dataProvider,
+        'columns' => $gridColumns
+    ]);
+?>
+    
+
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
