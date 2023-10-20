@@ -1,6 +1,8 @@
 <?php
 
 namespace frontend\controllers;
+use kartik\form\ActiveForm;
+use Mpdf\Tag\Br;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yii;
 use frontend\models\Branches;
@@ -93,6 +95,7 @@ class BranchesController extends Controller
     {
         if(Yii::$app->user->can('admin')){
             $model = new Branches();
+
             if ($this->request->isPost) {
                 if ($model->load($this->request->post())) {
                     if($model->save()){
@@ -173,6 +176,15 @@ class BranchesController extends Controller
             print_r($branch->getErrors());
         }
     }
+
+    public function actionValidation(){
+        $model = new Branches();
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()))
+        {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+}
 
     /**
      * Deletes an existing Branches model.

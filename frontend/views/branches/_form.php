@@ -18,7 +18,12 @@ echo Html::cssFile('@web/css/site.css');
 
 <div class="branches-form">
 
-    <?php $form = ActiveForm::begin(['id' => $model->formName()]); ?>
+    <?php $form = ActiveForm::begin([
+            'id' => $model->formName(),
+            'enableAjaxValidation' => true,
+            'validationUrl'=>Url::toRoute('branches/validation')
+    ]);
+    ?>
 
         <?= $form->field($model, 'companies_company_id')->dropDownList(
             ArrayHelper::map(Companies::find()->all(), 'company_id','company_name'),

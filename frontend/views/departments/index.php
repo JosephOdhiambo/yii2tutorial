@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'branches_branch_id',
                 'value'=>'branchesBranch.branch_name'
             ],
+
             'department_name',
             [
                 'attribute'=>'companies_company_id',
