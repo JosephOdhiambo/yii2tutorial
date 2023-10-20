@@ -38,7 +38,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'set-cookie', 'show-cookie'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -270,4 +270,21 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+
+    public function actionSetCookie(){
+        $cookie = new yii\web\Cookie([
+            'name' => 'test',
+            'value' => 'taste cookie value'
+        ]);
+
+        Yii::$app->getResponse()->getCookies()->add($cookie);
+    }
+
+    public function actionShowCookie()
+{
+    if(Yii::$app->getRequest()->getCookies()->has('test')){
+        print_r(Yii::$app->getRequest()->getCookies()->getValue('test'));
+    }
+}
 }
