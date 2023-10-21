@@ -1,6 +1,7 @@
 <?php
 
 use frontend\models\Companies;
+use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\jui\DatePicker;
@@ -19,10 +20,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Companies', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Create Companies', ['value' => Url::to('index.php?r=companies/create'),'class' => 'btn btn-success', 'id' =>'modalButton']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
+
+    <?php
+    Modal::begin([
+        'title'=>'<h4>Companies</h4>',
+        'id'=> 'modal',
+        'size' => 'modal-lg',
+    ]);
+
+    echo "<div id='modalContent'></div>";
+
+    Modal::end();
+    ?>
+
+
+    <?php
+    Modal::begin([
+        'title'=>'<h4>Update Companies</h4>',
+        'id'=> 'modalCompanies',
+        'size' => 'modal-lg',
+    ]);
+
+    echo "<div id='modalContent'></div>";
+
+    Modal::end();
+    ?>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -53,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Companies $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'company_id' => $model->company_id]);
-                 }
+                }
             ],
         ],
     ]); ?>

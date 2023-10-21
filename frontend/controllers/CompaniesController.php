@@ -105,7 +105,8 @@ class CompaniesController extends Controller
                 $model->loadDefaultValues();
             }
 
-            return $this->render('create', [
+
+            return $this->renderAjax('create', [
                 'model' => $model,
                 'branch' => $branch,
             ]);
@@ -124,19 +125,23 @@ class CompaniesController extends Controller
     public function actionUpdate($company_id)
     {
         $model = $this->findModel($company_id);
-        $branch = new Branches();
+
+        // Load the branch model associated with the company
+        $branch = Branches::findOne(['companies_company_id' => $model->company_id]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            // The model has been successfully updated.
+            // The company model has been successfully updated.
             Yii::$app->session->setFlash('success', 'Company updated successfully.');
             return $this->redirect(['view', 'company_id' => $model->company_id]);
         }
 
-        return $this->render('update', [
+        return $this->renderAjax('update', [
             'model' => $model,
             'branch' => $branch,
         ]);
     }
+
+
 
 
 

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\Companies $model */
-/** @var frontend\models\Branches $branch */ // Define the Branches model
+/** @var frontend\models\Branches $branch */
 
 $this->title = 'Update Companies: ' . $model->company_id;
 $this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => ['index']];

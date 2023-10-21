@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'class' => 'kartik\grid\ExpandRowColumn',
-                'headerOptions' => ['class' => 'bi bi-three-dots-vertical'],
                 'value' => function ($model, $key, $index, $column) {
                     return GridView::ROW_COLLAPSED;
                 },
@@ -42,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel = new ItemSearch();
                     $searchModel->po_id = $model->id;
                     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
                     return Yii::$app->controller->renderPartial('_poitems', [
                         'searchModel' => $searchModel,
                         'dataProvider' => $dataProvider,
@@ -62,15 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <?php Pjax::end(); ?>
-
-
-    <?php
-    $this->registerJs(<<<JS
-    $(document).ready(function() {
-        $('.kv-grid-table tbody tr').find('td:first-child').addClass('bi bi-caret-right-square-fill');
-    });
-JS);
-    ?>
 
 
 </div>
