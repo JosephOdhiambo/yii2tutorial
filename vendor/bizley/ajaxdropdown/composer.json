@@ -1,0 +1,34 @@
+{
+    "name": "bizley/ajaxdropdown",
+    "type": "yii2-extension",
+    "description": "Bootstrap dropdown list with AJAX data.",
+    "keywords": ["yii2", "widget", "ajaxdropdown", "bootstrap", "ajax", "dropdown"],
+    "license": "BSD-3-Clause",
+    "support": {
+        "source": "https://github.com/bizley/Yii2-AjaxDropDown",
+        "issues": "https://github.com/bizley/yii2-AjaxDropDown/issues"
+    },
+    "authors": [
+        {
+            "name": "Paweł Bizley Brzozowski",
+            "email": "pawel@positive.codes"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "bizley\\ajaxdropdown\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
