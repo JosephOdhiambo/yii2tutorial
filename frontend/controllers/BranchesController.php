@@ -156,6 +156,7 @@ class BranchesController extends Controller
         $worksheet = $spreadsheet->getActiveSheet();
         $highestRow = $worksheet->getHighestRow();
         $highestColumn = $worksheet->getHighestColumn();
+        $data = []; // Initialize the data array as an empty array
 
         for ($row = 1; $row <= $highestRow; $row++) {
             $rowData = $worksheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, null, true, false);
@@ -164,18 +165,27 @@ class BranchesController extends Controller
                 continue; // Skip the header row
             }
 
-            $branch = new Branches();
-            $branch_id = $rowData[0][0];
-            $branch->companies_company_id = $rowData[0][1];
-            $branch->branch_name = $rowData[0][2];
-            $branch->branch_address = $rowData[0][3];
-            $branch->branch_created_date = $rowData[0][4];
-            $branch->branch_status = $rowData[0][5];
-            $branch->save();
-
-            print_r($branch->getErrors());
+            if(!empty($rowData[0][0])){
+                $data[] = [ // Append data for the current row to the $data array
+                    $rowData[0][0],
+                    $rowData[0][1],
+                    $rowData[0][2],
+                    $rowData[0][3],
+                    date('Y-m-d H:i:s'),
+                    $rowData[0][4],
+                ];
+            }
+            print_r($data);
         }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert('branches', ['branch_id', 'companies_company_id', 'branch_name', 'branch_address', 'branch_created_date', 'branch_status'], $data)
+            ->execute();
+
+        die('okay');
     }
+
 
     public function actionValidation(){
         $model = new Branches();
@@ -184,7 +194,7 @@ class BranchesController extends Controller
             Yii::$app->response->format = 'json';
             return ActiveForm::validate($model);
         }
-}
+    }
 
     /**
      * Deletes an existing Branches model.
