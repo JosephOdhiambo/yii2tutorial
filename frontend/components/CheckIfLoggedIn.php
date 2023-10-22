@@ -11,15 +11,15 @@ class CheckIfLoggedIn extends Behavior{
   ];
  }
 
- public function checkIfLoggedIn(){
-     if(Yii::$app->user->isGuest){
-         echo 'you are a guest ';
-     }
-//     else{
-//         echo 'you are logged in';
-//     }
-//     die();
- }
-}
+//  public function checkIfLoggedIn(){
+//      if(Yii::$app->user->isGuest){
+//          echo 'you are a guest ';
+//      }
+// //     else{
+// //         echo 'you are logged in';
+// //     }
+// //     die();
+//  }
+// }
 
 ?>

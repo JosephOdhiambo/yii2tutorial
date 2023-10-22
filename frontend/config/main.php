@@ -54,9 +54,9 @@ return [
         ],
         */
     ],
-    'as beforeRequest' => [
-        'class' => 'frontend\components\CheckIfLoggedIn',
+    // 'as beforeRequest' => [
+    //     'class' => 'frontend\components\CheckIfLoggedIn',
 
-    ],
+    // ],
     'params' => $params,
 ];
