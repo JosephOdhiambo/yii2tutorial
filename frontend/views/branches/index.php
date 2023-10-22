@@ -127,8 +127,8 @@ echo Html::cssFile('@web/css/site.css');
         'pjax'=>true,
 //        'showPageSummary'=>true,
         'panel'=>[
-            'type'=>'primary',
-            'heading'=>'Products'
+            'type'=>'success',
+            'heading'=>'Branches'
         ]
     ]);
     ?>

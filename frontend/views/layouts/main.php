@@ -43,11 +43,12 @@ AppAsset::register($this);
     ]);
     $menuItems = [
               ['label' => 'Home', 'url' => ['/site/index'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
-        ['label' => 'Branches', 'url' => ['/branches'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
-        ['label' => 'Companies', 'url' => ['/companies'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
-        ['label' => 'Customers', 'url' => ['/customers'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
-        ['label' => 'Departments', 'url' => ['/departments'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
-        ['label' => 'Events', 'url' => ['/events'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
+        ['label' => 'Branches', 'url' => ['/branches/index'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
+        ['label' => 'Companies', 'url' => ['/companies/index'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
+        ['label' => 'Customers', 'url' => ['/customers/index'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
+        ['label' => 'Departments', 'url' => ['/departments/index'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
+        ['label' => 'Events', 'url' => ['/events/index'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
+        ['label' => 'Comments', 'url' => ['/branches/display-comments'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
         ['label' => 'Po', 'url' => ['/po'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
         ['label' => 'Locations', 'url' => ['/locations'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
     ];

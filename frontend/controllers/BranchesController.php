@@ -46,6 +46,11 @@ class BranchesController extends Controller
      */
     public function actionIndex()
     {
+//        $comments = Yii::$app->db2->createCommand("select * from `comments`")->queryAll();
+//        print_r($comments);
+//        die();
+
+
         $searchModel = new BranchesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -245,4 +250,14 @@ class BranchesController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionDisplayComments() {
+        $comments = Yii::$app->db2->createCommand("select * from `comments`")->queryAll();
+
+        $this->view->params['comments'] = $comments;
+
+        return $this->render('comments');
+    }
+
+
 }
