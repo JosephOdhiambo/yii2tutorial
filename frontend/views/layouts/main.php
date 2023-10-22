@@ -53,6 +53,8 @@ echo Nav::widget([
         ['label' => 'Po', 'url' => ['/po'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
         ['label' => 'Locations', 'url' => ['/locations'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
         ['label' => 'Logoff', 'url' => ['/site/logout'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
+        ['label' => 'Logoff', 'url' => ['/site/logout'], 'linkOptions' => ['class' => 'nav-link d-none d-sm-inline-block']],
+
 
     ],
 ]);
@@ -64,6 +66,14 @@ NavBar::end();
 
 <main role="main" class="flex-shrink-0">
     <div class="container">
+        <?php
+        if(isset($this->params['test'])){
+            echo $this->params['test'];
+        }
+        if(isset($this->blocks['advertisement'])){
+            echo $this->blocks['advertisement'];
+        }
+        ?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

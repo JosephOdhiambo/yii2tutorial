@@ -3856,12 +3856,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap5.git",
-                "reference": "cf7807d3c6912ddf16c2ba6644630718c8c60e41"
+                "reference": "1a4f4d66c9ef3a076dc327999f8dc8b52caa5ac0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap5/zipball/cf7807d3c6912ddf16c2ba6644630718c8c60e41",
-                "reference": "cf7807d3c6912ddf16c2ba6644630718c8c60e41",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap5/zipball/1a4f4d66c9ef3a076dc327999f8dc8b52caa5ac0",
+                "reference": "1a4f4d66c9ef3a076dc327999f8dc8b52caa5ac0",
                 "shasum": ""
             },
             "require": {
@@ -3930,7 +3930,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-24T08:55:23+00:00"
+            "time": "2023-10-20T14:56:35+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -7104,16 +7104,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v6.3.5",
+            "version": "v6.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "3d9999376be5fea8de47752837a3e1d1c5f69ef5"
+                "reference": "999ede244507c32b8e43aebaa10e9fce20de7c97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3d9999376be5fea8de47752837a3e1d1c5f69ef5",
-                "reference": "3d9999376be5fea8de47752837a3e1d1c5f69ef5",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/999ede244507c32b8e43aebaa10e9fce20de7c97",
+                "reference": "999ede244507c32b8e43aebaa10e9fce20de7c97",
                 "shasum": ""
             },
             "require": {
@@ -7168,7 +7168,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v6.3.5"
+                "source": "https://github.com/symfony/var-dumper/tree/v6.3.6"
             },
             "funding": [
                 {
@@ -7184,7 +7184,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-12T10:11:35+00:00"
+            "time": "2023-10-12T18:45:56+00:00"
         },
         {
             "name": "symfony/yaml",

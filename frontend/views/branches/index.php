@@ -62,7 +62,12 @@ echo Html::cssFile('@web/css/site.css');
 
 
     <?php
-    $i=1;
+    $this->params['test'] = 'This is a test string';
+    $this->beginBlock('advertisement');?>
+    <h3>This is an advertisement</h3>
+    <?php
+    $this->endBlock();
+
     echo GridView::widget([
         'dataProvider'=>$dataProvider,
         'autoXlFormat'=>true,
