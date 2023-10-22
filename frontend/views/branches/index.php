@@ -94,17 +94,15 @@ echo Html::cssFile('@web/css/site.css');
             ],
             [
                 'attribute'=>'branch_name',
-                'header' => 'BRANCH',
                 'class' => 'kartik\grid\EditableColumn',
                 'format'=>'text',
                 'width'=>'120px'
             ],
             [
-                'attribute'=>'branch_created_date',
-                'format'=>['date', 'php:d-M-Y'],
-                'value' => 'branch_created_date',
-                'xlFormat'=>'mmm\-dd\, yyyy',
-                'width'=>'100px'
+                'attribute'=>'branch_address',
+                'value'=>'branch_address',
+                'format'=>'text',
+                'width'=>'100px',
             ],
 
             [

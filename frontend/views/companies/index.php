@@ -87,3 +87,29 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
+<?php
+$script = <<< JS
+$(document).ready(function() {
+    // Click event handler for anchor tags with title="Update"
+    $("tbody a[title='Update']").on("click", function(event) {
+        var dataKey = $(this).closest("tr").data("key");
+        console.log("data-key: " + dataKey);
+        event.preventDefault();
+
+        // Construct the URL
+        var updateUrl = 'index.php?r=companies%2Fupdate&company_id=' + dataKey;
+
+        // Open the Bootstrap modal
+        $('#modalCompanies').modal('show');
+
+        // Load the form content into the card
+        $('#modalCompanies .modal-body').load(updateUrl, function() {
+            // Optional callback function after the content is loaded
+            // For example, you can initialize form behavior here
+        });
+    });
+});
+JS;
+
+$this->registerJs($script, yii\web\View::POS_READY);
+?>
